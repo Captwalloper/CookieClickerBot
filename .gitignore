@@ -1,0 +1,7 @@
+__pycache__
+
+ChromeDriver/
+!ChromeDriver/InstallChromeDriver.py
+
+Saves/
+!Saves/Current/DeliciousClickBackery.txt

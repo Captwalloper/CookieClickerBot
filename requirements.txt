@@ -1,0 +1,4 @@
+selenium
+keyboard
+easygui
+chromedriver-py
