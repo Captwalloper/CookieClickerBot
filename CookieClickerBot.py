@@ -14,7 +14,6 @@ def Main(canBuy: bool):
         for u in upgrades:
             u.Buy()
         products = CC.GetProducts()
-        print(products)
         products.reverse() # prefer latest building
         for p in products:
             p.Buy()

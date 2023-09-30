@@ -8,6 +8,9 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.service import Service
+from Saves.SaveGame import Load as LoadSave
+from ChromeDriver.InstallChromeDriver import CHROME_DRIVER_OUTPUT_PATH
 
 class Id(StrEnum):
     ENGLISH = "langSelect-EN"
@@ -33,8 +36,7 @@ class CookieClicker:
         options = Options()
         options.add_argument("--start-maximized")
         options.add_experimental_option('excludeSwitches', ['enable-logging']) # remove log spam
-        chrome_driver_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "ChromeDriver", "chromedriver.exe"))
-        self.driver = webdriver.Chrome(chrome_options = options, executable_path = chrome_driver_path)
+        self.driver = webdriver.Chrome(chrome_options = options, service=Service(CHROME_DRIVER_OUTPUT_PATH))
     def Launch(self):
         self.driver.get("https://orteil.dashnet.org/cookieclicker/")
         self.__Wait_for(Id.ENGLISH)
@@ -44,11 +46,7 @@ class CookieClicker:
     def Close(self):
         self.driver.close()
     def Load(self):
-        current_save_dir = os.path.join(__file__, "..", "Saves", "Current")
-        save_file = os.listdir(current_save_dir)[0]
-        save_data = ""
-        with open(os.path.join(current_save_dir, save_file), encoding='utf-8-sig') as file:
-            save_data = file.read()
+        save_data = LoadSave()
         self.driver.find_element(By.CSS_SELECTOR, "div.subButton").click() # open options menu
         self.__Wait_for(Id.OPTIONS_MENU)
         self.driver.find_element(By.CSS_SELECTOR, "a[onclick^='Game.Import'").click()

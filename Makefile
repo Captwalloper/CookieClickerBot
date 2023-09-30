@@ -5,4 +5,4 @@ Restore:
 	 pip install -r requirements.txt
 
 EnsureChromeDriver:
-	python ChromeDriver/InstallChromeDriver.py
+	python ChromeDriver/InstallChromeDriver.py --test
